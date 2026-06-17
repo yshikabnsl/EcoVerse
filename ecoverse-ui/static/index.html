@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoVerse - Intelligent Waste Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrapper">
+    <header class="header">
+      <div class="header-left">
+        <div class="logo">
+          <span class="logo-icon">🌿</span>
+          <span class="logo-text">EcoVerse</span>
+        </div>
+        <span class="welcome-msg">Welcome back, Tanya! 👋</span>
+      </div>
+      <nav class="nav">
+        <a href="#dashboard" class="nav-link active" data-page="dashboard">◈ Dashboard</a>
+        <a href="#classify" class="nav-link" data-page="classify">◇ Classify Waste</a>
+        <a href="#pickup" class="nav-link" data-page="pickup">▷ Schedule Pickup</a>
+        <a href="#rewards" class="nav-link" data-page="rewards">★ Rewards</a>
+        <a href="#routes" class="nav-link" data-page="routes">◐ Route Map</a>
+      </nav>
+    </header>
+
+    <main class="main">
+      <!-- Dashboard -->
+      <div id="page-dashboard" class="page active">
+        <section class="hero">
+          <div class="welcome-card">
+            <h1>Welcome back, Tanya! 👋</h1>
+            <p>EcoVerse helps you segregate waste correctly and make cities cleaner.</p>
+          </div>
+        </section>
+        <section class="stats-grid">
+          <div class="stat-card"><span class="stat-value" style="color: var(--color-organic)">24</span><span class="stat-unit">this month</span><span class="stat-label">Waste Classified</span></div>
+          <div class="stat-card"><span class="stat-value" style="color: var(--color-recyclable)">1,240</span><span class="stat-unit">points</span><span class="stat-label">Reward Points</span></div>
+          <div class="stat-card"><span class="stat-value" style="color: var(--color-leaf)">3</span><span class="stat-unit">this week</span><span class="stat-label">Pickups Completed</span></div>
+          <div class="stat-card"><span class="stat-value" style="color: var(--color-earth)">12</span><span class="stat-unit">kg</span><span class="stat-label">CO₂ Saved</span></div>
+        </section>
+        <section class="section">
+          <h2>Quick Actions</h2>
+          <div class="actions-grid">
+            <a href="#classify" class="action-card"><span class="action-icon">◇</span><h3>Classify Waste</h3><p>Upload image & get AI classification</p></a>
+            <a href="#pickup" class="action-card"><span class="action-icon">▷</span><h3>Schedule Pickup</h3><p>Book a waste collection</p></a>
+            <a href="#rewards" class="action-card"><span class="action-icon">★</span><h3>View Rewards</h3><p>Check your eco-points</p></a>
+          </div>
+        </section>
+        <section class="info-card">
+          <h3>How EcoVerse Works</h3>
+          <ul>
+            <li><strong>AI Classification</strong> — Upload a photo of waste to classify as Organic, Recyclable, or Hazardous.</li>
+            <li><strong>Smart Pickups</strong> — Schedule collection and track status in real time.</li>
+            <li><strong>Earn Rewards</strong> — Get points for proper segregation and redeem for benefits.</li>
+            <li><strong>Optimized Routes</strong> — Municipal trucks use efficient routes to save fuel and time.</li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- Classify Waste -->
+      <div id="page-classify" class="page">
+        <section class="page-header">
+          <h1>AI Waste Classification</h1>
+          <p>Upload a photo of your waste and our AI will classify it as Organic, Recyclable, or Hazardous.</p>
+        </section>
+        <div class="grid-2">
+          <div class="upload-card">
+            <input type="file" id="file-input" accept="image/*" hidden>
+            <div id="upload-area">
+              <button type="button" id="upload-btn" class="upload-zone">
+                <span class="upload-icon">📷</span>
+                <span>Click or drag image here</span>
+                <span class="upload-hint">Supports JPG, PNG, WebP</span>
+              </button>
+              <div id="preview-area" class="preview-wrapper" style="display:none">
+                <img id="preview-img" alt="Uploaded waste">
+                <div class="preview-actions">
+                  <button type="button" id="upload-new-btn" class="btn-secondary">Upload new</button>
+                  <button type="button" id="try-sample-btn" class="btn-primary">Try sample</button>
+                </div>
+              </div>
+            </div>
+            <div id="loading-bar" class="loading-bar" style="display:none">
+              <div class="spinner"></div>
+              <span>Analyzing with AI...</span>
+            </div>
+          </div>
+          <div class="result-card">
+            <h3>Classification Result</h3>
+            <div id="result-content">
+              <div id="result-placeholder" class="placeholder">Upload an image to see results</div>
+              <div id="result-data" style="display:none">
+                <span id="type-badge" class="type-badge"></span>
+                <div id="confidence" class="confidence"></div>
+                <p id="tip" class="tip"></p>
+                <div id="points-earned" class="points-earned"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <section class="recent-section">
+          <h4>Recent Classifications</h4>
+          <div id="recent-list" class="recent-list">
+            <div class="recent-item"><span class="recent-type">Organic</span><span class="recent-conf">94%</span></div>
+            <div class="recent-item"><span class="recent-type">Recyclable</span><span class="recent-conf">87%</span></div>
+            <div class="recent-item"><span class="recent-type">Organic</span><span class="recent-conf">91%</span></div>
+          </div>
+        </section>
+        <section class="legend-section">
+          <h4>Waste Categories</h4>
+          <div class="legend-grid">
+            <div class="legend-item"><span class="legend-dot" style="background:var(--color-organic)"></span>Organic — Food scraps, garden waste, paper towels</div>
+            <div class="legend-item"><span class="legend-dot" style="background:var(--color-recyclable)"></span>Recyclable — Plastic, metal, glass, cardboard</div>
+            <div class="legend-item"><span class="legend-dot" style="background:var(--color-hazard)"></span>Hazardous — Batteries, chemicals, electronics, medical</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Schedule Pickup -->
+      <div id="page-pickup" class="page">
+        <section class="page-header">
+          <h1>Schedule Waste Pickup</h1>
+          <p>Book a waste collection and track status in real time.</p>
+        </section>
+        <div class="toolbar">
+          <button type="button" id="show-form-btn" class="btn-primary">+ Schedule New Pickup</button>
+        </div>
+        <form id="pickup-form" class="form-card" style="display:none">
+          <h3>New Pickup Request</h3>
+          <div class="form-grid">
+            <div><label>Date</label><input type="date" id="pickup-date" required></div>
+            <div><label>Preferred Time</label>
+              <select id="pickup-time">
+                <option value="6:00 AM">6:00 AM</option>
+                <option value="9:00 AM">9:00 AM</option>
+                <option value="12:00 PM">12:00 PM</option>
+                <option value="3:00 PM">3:00 PM</option>
+              </select>
+            </div>
+            <div><label>Waste Type</label>
+              <select id="pickup-type">
+                <option value="Organic">Organic</option>
+                <option value="Recyclable">Recyclable</option>
+                <option value="Mixed">Mixed (Organic + Recyclable)</option>
+                <option value="Hazardous">Hazardous (Special)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row"><label>Address</label><input type="text" id="pickup-address" placeholder="Enter pickup address" required></div>
+          <div class="form-actions">
+            <button type="button" id="cancel-form-btn" class="btn-secondary">Cancel</button>
+            <button type="submit" class="btn-primary">Confirm</button>
+          </div>
+        </form>
+        <section class="list-section">
+          <h2>Your Scheduled Pickups</h2>
+          <div id="pickups-list" class="cards-list"></div>
+        </section>
+      </div>
+
+      <!-- Rewards -->
+      <div id="page-rewards" class="page">
+        <section class="page-header">
+          <h1>Reward Points</h1>
+          <p>Earn points for proper waste segregation and redeem for eco-friendly rewards.</p>
+        </section>
+        <div id="toast" class="toast" style="display:none"></div>
+        <div class="points-card">
+          <div class="points-display">
+            <span id="points-value" class="points-value">1,240</span>
+            <span class="points-label">Total Points</span>
+          </div>
+          <p class="points-hint">+10 pts per classification • +25 pts per completed pickup • +5 pts for on-time segregation</p>
+        </div>
+        <div class="grid-2">
+          <section class="section-card">
+            <h2>Redeem Rewards</h2>
+            <div id="rewards-list" class="rewards-list"></div>
+          </section>
+          <section class="section-card">
+            <h2>Point History</h2>
+            <div id="history-list" class="history-list"></div>
+          </section>
+        </div>
+      </div>
+
+      <!-- Route Optimization -->
+      <div id="page-routes" class="page">
+        <section class="page-header">
+          <h1>Route Optimization</h1>
+          <p>View optimized garbage truck routes using Dijkstra's algorithm. Saves fuel and reduces collection time.</p>
+        </section>
+        <div class="map-placeholder">
+          <div class="map-content">
+            <div id="route-diagram" class="route-diagram"></div>
+            <p class="map-hint">Optimized path using Dijkstra • Green = done • Brown = in progress</p>
+          </div>
+        </div>
+        <section class="stats-row">
+          <div class="stat-box"><span class="stat-num">8</span><span class="stat-label">Stops today</span></div>
+          <div class="stat-box"><span class="stat-num">~52 min</span><span class="stat-label">Estimated time</span></div>
+          <div class="stat-box"><span class="stat-num">14.2 km</span><span class="stat-label">Optimized distance</span></div>
+          <div class="stat-box"><span class="stat-num">23%</span><span class="stat-label">Fuel saved</span></div>
+        </section>
+        <section class="section-card">
+          <h2>Today's Route Stops</h2>
+          <div id="stops-list" class="stops-list"></div>
+        </section>
+        <section class="info-section">
+          <h4>How it works</h4>
+          <p>The system represents the city as a graph: nodes are pickup locations, edges are roads with distance/cost. Dijkstra's algorithm finds the shortest path from the truck's current location through all scheduled stops, reducing fuel consumption and improving municipal efficiency.</p>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
